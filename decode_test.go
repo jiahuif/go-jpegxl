@@ -3,6 +3,7 @@ package jpegxl
 import (
 	"bytes"
 	"encoding/base64"
+	"image"
 	"image/png"
 	"testing"
 )
@@ -35,13 +36,19 @@ func TestDecodeSmallImage(t *testing.T) {
 			referenceImageBytes, _ := base64.StdEncoding.DecodeString(tc.referenceBase64)
 			ref, _ := png.Decode(bytes.NewReader(referenceImageBytes))
 			imageBytes, _ := base64.StdEncoding.DecodeString(tc.imageBase64)
-			image, _ := Decode(bytes.NewReader(imageBytes))
+			img, f, err := image.Decode(bytes.NewReader(imageBytes))
+			if err != nil {
+				t.Fatalf("decode error: %v", err)
+			}
+			if f != "jxl" {
+				t.Errorf("unknown format: %v", f)
+			}
 			for i := 0; i < ref.Bounds().Dx(); i++ {
 				for j := 0; j < ref.Bounds().Dy(); j++ {
 					rR, rG, rB, rA := ref.At(i, j).RGBA()
-					iR, iG, iB, iA := image.At(i, j).RGBA()
+					iR, iG, iB, iA := img.At(i, j).RGBA()
 					if rR != iR || rG != iG || rB != iB || rA != iA {
-						t.Errorf("mismatched pixel at %d, %d: expected %v, but got %v", i, j, ref.At(i, j), image.At(i, j))
+						t.Errorf("mismatched pixel at %d, %d: expected %v, but got %v", i, j, ref.At(i, j), img.At(i, j))
 					}
 				}
 			}
