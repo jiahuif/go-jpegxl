@@ -4,7 +4,7 @@ import (
 	"image"
 	"io"
 
-	"github.com/indeedplusplus/go-jpegxl/internal/decoder"
+	"github.com/indeedplusplus/go-jpegxl/internal/decode"
 )
 
 func init() {
@@ -12,11 +12,11 @@ func init() {
 }
 
 func Decode(r io.Reader) (image.Image, error) {
-	img, _, err := decoder.DecodeReader(r, false)
+	img, _, err := decode.FromReader(r, false)
 	return img, err
 }
 
 func DecodeConfig(r io.Reader) (image.Config, error) {
-	_, cfg, err := decoder.DecodeReader(r, true)
+	_, cfg, err := decode.FromReader(r, true)
 	return cfg, err
 }

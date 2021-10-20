@@ -1,4 +1,4 @@
-package decoder
+package decode
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"io"
 	"unsafe"
 
-	"github.com/indeedplusplus/go-jpegxl/internal/decoder/glue"
+	"github.com/indeedplusplus/go-jpegxl/internal/decode/glue"
 )
 
 var ErrDecodeError = fmt.Errorf("JXL_DEC_ERROR")
@@ -18,7 +18,7 @@ type BasicInfo struct {
 	Width, Height int
 }
 
-func DecodeReader(r io.Reader, headerOnly bool) (image.Image, image.Config, error) {
+func FromReader(r io.Reader, headerOnly bool) (image.Image, image.Config, error) {
 	decoder := glue.JxlDecoderCreate(glue.SwigcptrJxlMemoryManager(0))
 	defer glue.JxlDecoderDestroy(decoder)
 
