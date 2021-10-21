@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/indeedplusplus/go-jpegxl"
+	"github.com/jiahuif/go-jpegxl"
 )
 
 func main() {

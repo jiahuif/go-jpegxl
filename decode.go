@@ -4,7 +4,7 @@ import (
 	"image"
 	"io"
 
-	"github.com/indeedplusplus/go-jpegxl/internal/decode"
+	"github.com/jiahuif/go-jpegxl/internal/decode"
 )
 
 func init() {

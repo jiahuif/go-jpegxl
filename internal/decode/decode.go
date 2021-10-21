@@ -7,7 +7,7 @@ import (
 	"io"
 	"unsafe"
 
-	"github.com/indeedplusplus/go-jpegxl/internal/decode/glue"
+	"github.com/jiahuif/go-jpegxl/internal/decode/glue"
 )
 
 var ErrDecodeError = fmt.Errorf("JXL_DEC_ERROR")
